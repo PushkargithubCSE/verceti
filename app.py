@@ -25,7 +25,7 @@ def health_check():
     }
 
 
-@app.post("/generate-video")
+@app.get("/generate-video")
 def generate_video(request: VideoRequest):
     """
     Full pipeline:
