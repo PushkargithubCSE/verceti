@@ -2,7 +2,7 @@
 
 from fastapi import FastAPI
 from pydantic import BaseModel
-
+from fastapi.middleware.cors import CORSMiddleware
 from services.ollama_service import generate_tutorial_script
 from services.scene_builder import build_scenes
 from services.tts_service import generate_audio
@@ -11,7 +11,13 @@ from services.video_builder import build_final_video
 
 
 app = FastAPI(title="AI CodeTutor Video Generator")
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class VideoRequest(BaseModel):
     topic: str
@@ -25,7 +31,7 @@ def health_check():
     }
 
 
-@app.get("/generate-video")
+@app.post("/generate-video")
 def generate_video(request: VideoRequest):
     """
     Full pipeline:
