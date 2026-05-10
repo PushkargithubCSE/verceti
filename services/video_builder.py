@@ -1,6 +1,6 @@
 # backend/services/video_builder.py
 
-from moviepy.editor import ImageClip, AudioFileClip, concatenate_videoclips
+from moviepy import ImageClip, AudioFileClip, concatenate_videoclips
 
 
 OUTPUT_VIDEO_FOLDER = "output/videos"

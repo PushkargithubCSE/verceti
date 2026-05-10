@@ -1,34 +1,35 @@
+# backend/services/scene_builder.py
+
 def build_scenes(script: str):
     """
     Convert raw Ollama script into structured scenes
     for video generation.
 
-    Input example:
-    """
+    Example Input:
+
     1. A for loop repeats actions
     2. It helps avoid repeated code
     3. Example:
     for i in range(5):
         print(i)
     4. This prints numbers from 0 to 4
-    """
 
-    Output example:
+    Example Output:
+
     [
         {
             "text": "A for loop repeats actions",
             "code": ""
         },
         {
-            "text": "Here is an example",
-            "code": "for i in range(5):
-    print(i)"
+            "text": "Here is the code example",
+            "code": "for i in range(5):\nprint(i)"
         }
     ]
     """
 
-    lines = script.split("
-")
+    lines = script.split("\n")
+
     scenes = []
     code_lines = []
 
@@ -38,7 +39,7 @@ def build_scenes(script: str):
         if not clean_line:
             continue
 
-        # detect code block
+        # detect code lines
         if "for " in clean_line or "print(" in clean_line:
             code_lines.append(clean_line)
             continue
@@ -49,12 +50,11 @@ def build_scenes(script: str):
             "code": ""
         })
 
-    # add code scene separately if code exists
+    # add code scene separately
     if code_lines:
         scenes.append({
             "text": "Here is the code example",
-            "code": "
-".join(code_lines)
+            "code": "\n".join(code_lines)
         })
 
     return scenes

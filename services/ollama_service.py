@@ -3,7 +3,7 @@
 import requests
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
-OLLAMA_MODEL = "mistral"
+OLLAMA_MODEL = "tinyllama"
 
 
 def generate_tutorial_script(topic: str):
