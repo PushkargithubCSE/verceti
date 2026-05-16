@@ -23,11 +23,11 @@ def build_final_video(frame_paths, audio_paths, output_file="final_video.mp4"):
     for frame, audio in zip(frame_paths, audio_paths):
         audio_clip = AudioFileClip(audio)
 
-        image_clip = (
-            ImageClip(frame)
-            .set_duration(audio_clip.duration)
-            .set_audio(audio_clip)
-        )
+        image_clip = (                         # changed to .with from .set
+    ImageClip(frame)
+    .with_duration(audio_clip.duration)
+    .with_audio(audio_clip)
+)
 
         clips.append(image_clip)
 
